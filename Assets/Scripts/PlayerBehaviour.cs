@@ -10,6 +10,8 @@ public class PlayerBehaviour : MonoBehaviour
     public float movementSpeed =5f;
     public int coins =0;
     public TextMeshProUGUI coinsText;
+    public AudioClip coinSFX;
+    public AudioClip specialcoinSFX;
 
     // Start is called before the first frame update
     void Start()
@@ -38,16 +40,20 @@ public class PlayerBehaviour : MonoBehaviour
         {
             Debug.Log("He tocado una moneda");
             coins++;
+            AudioSource.PlayClipAtPoint(coinSFX, transform.position);  //transform.position hace que el sonido se reproduzca más alto o más bajo según la distancia donde está el sonido de la cámara.
         }
         else if (other.CompareTag("SpecialCoin"))
         {
             Debug.Log("He tocado una moneda especial");
             coins+=5;
+            AudioSource.PlayClipAtPoint(specialcoinSFX, transform.position);
         }
         if (other.tag.Contains("Coin"))
         {
             coinsText.text = coins.ToString() ;
             other.gameObject.SetActive(false);
+            
+
         }
 
     }
